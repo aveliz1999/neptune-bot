@@ -1,11 +1,12 @@
 import {Client} from 'discord.js-commando';
 import init from './db';
+import {discordConfig} from "../config";
 import Register from "./commands/register";
 import Shame from "./commands/shame";
 
 const client = new Client({
-    owner: '210957367947296768',
-    commandPrefix: 'np'
+    owner: discordConfig.owner,
+    commandPrefix: discordConfig.prefix
 });
 
 client.registry
@@ -24,4 +25,4 @@ client.on('ready', async () => {
     await init();
 });
 
-client.login('ODcwMTExMzA3MTU0NzI2OTYy.YQIATQ.6Vf--9RRdNhYrkU-NW2oVjZkMZQ');
+client.login(discordConfig.apiToken);
