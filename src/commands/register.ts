@@ -43,7 +43,10 @@ export default class Register extends Command {
             const game = {
                 gameId: args.gameId,
                 apiKey: args.apiKey,
-                players: []
+                players: [],
+                lastTick: 0,
+                discordGuildId: message.guild.id,
+                discordChannelId: message.channel.id
             };
 
             const playerNames = Object.values(data.scanning_data.players).map(p => p.alias);

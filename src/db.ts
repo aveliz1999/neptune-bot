@@ -7,7 +7,10 @@ type GameType = {
     players: {
         alias: string,
         discordUser: string
-    }[]
+    }[],
+    lastTick: number,
+    discordGuildId: string,
+    discordChannelId: string
 }
 
 const file = join(__dirname, '..', 'db.json');
@@ -21,14 +24,21 @@ export function getGameFromId(id: string): GameType | undefined {
     return db.find(g => g.gameId === id);
 }
 
-export function addGame(game: {
-    gameId: string,
-    apiKey: string,
-    players: {
-        alias: string,
-        discordUser: string
-    }[]
-}) {
+export function getAllGames() {
+    return [...db]
+}
+
+export async function updateGame(game: GameType) {
+    db = db.map(g => {
+        if(g.gameId === game.gameId && g.apiKey === game.apiKey) {
+            return game;
+        }
+        return g;
+    });
+    return save();
+}
+
+export function addGame(game: GameType) {
     db.push(game);
     return save();
 }
