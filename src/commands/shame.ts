@@ -36,18 +36,12 @@ export default class Shame extends Command {
             });
             const toShame = Object.values(data.scanning_data.players).filter(player =>
                 !player.ready
-            );
+            ).map(p => p.alias);
 
-            for(let player of toShame) {
-                const foundPlayer = game.players.find(p => p.alias === player.alias);
-                if(!foundPlayer) {
-                    await message.channel.send(`${player.alias} has not submitted their turn yet!`)
-                    continue;
-                }
-                const discordUser = foundPlayer.discordUser;
-                const user = await message.guild.members.fetch(discordUser);
-                await message.channel.send(`${player.alias} (${user}) has not submitted their turn yet!`);
-            }
+            const shameMessage = game.players.filter(p => toShame.includes(p.alias)).reduce(((previousValue, currentValue) => {
+                return previousValue + `<@${currentValue.discordUser}> `
+            }), 'Players who have not submitted their turn:!\n');
+            await message.channel.send(shameMessage)
         }
         catch(err) {
             throw err;
