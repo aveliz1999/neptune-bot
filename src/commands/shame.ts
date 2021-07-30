@@ -41,11 +41,12 @@ export default class Shame extends Command {
             for(let player of toShame) {
                 const foundPlayer = game.players.find(p => p.alias === player.alias);
                 if(!foundPlayer) {
+                    await message.channel.send(`${player.alias} has not submitted their turn yet!`)
                     continue;
                 }
                 const discordUser = foundPlayer.discordUser;
                 const user = await message.guild.members.fetch(discordUser);
-                await message.channel.send(`${user} has not submitted their turn yet!`);
+                await message.channel.send(`${player.alias} (${user}) has not submitted their turn yet!`);
             }
         }
         catch(err) {
