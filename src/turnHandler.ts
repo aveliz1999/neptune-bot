@@ -18,7 +18,7 @@ export default function(client: Client) {
             try{
                 const {data}: {data: {scanning_data: ScanningData}} = await axios.post('https://np.ironhelmet.com/api', form, {
                     headers: form.getHeaders()
-                });
+		});
 
                 if(data.scanning_data.tick === game.lastTick) {
                     continue;
@@ -37,6 +37,5 @@ export default function(client: Client) {
                 throw err;
             }
         }
-    });
-    job.start()
+    }, null, true, 'America/New_York', null, true);
 }
