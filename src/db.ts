@@ -25,6 +25,10 @@ export function getGameFromId(id: string): GameType | undefined {
     return db.find(g => g.gameId === id);
 }
 
+export function getGamesForPlayer(discordId: string) {
+    return db.filter(g => !!(g.players.find(p => p.discordUser === discordId)))
+}
+
 export function getAllGames() {
     return [...db]
 }
