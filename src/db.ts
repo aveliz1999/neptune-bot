@@ -10,7 +10,8 @@ type GameType = {
     }[],
     lastTick: number,
     discordGuildId: string,
-    discordChannelId: string
+    discordChannelId: string,
+    name: string
 }
 
 const file = join(__dirname, '..', 'db.json');
