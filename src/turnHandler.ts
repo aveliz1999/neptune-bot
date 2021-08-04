@@ -29,7 +29,7 @@ export default function(client: Client) {
 
                 const message = game.players.reduce(((previousValue, currentValue) => {
                     return previousValue + `<@${currentValue.discordUser}> `
-                }), 'Next turn has started!\n');
+		}), 'Next turn has started!\n') + `\nhttps://np.ironhelmet.com/game/${game.gameId}`;
                 await channel.send(message);
 
             }
