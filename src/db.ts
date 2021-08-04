@@ -1,7 +1,7 @@
 import {join} from 'path';
 import fs from 'fs';
 
-type GameType = {
+export type GameType = {
     apiKey: string,
     gameId: string,
     players: {
