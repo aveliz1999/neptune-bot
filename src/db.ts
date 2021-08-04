@@ -48,6 +48,11 @@ export function addGame(game: GameType) {
     return save();
 }
 
+export function removeGame(game: GameType) {
+    db = db.filter(g => g.gameId === game.gameId && g.discordGuildId === game.discordGuildId)
+    return save();
+}
+
 export default async function() {
     try {
         const tempdb = await fs.promises.readFile(file, {encoding: 'utf-8'});

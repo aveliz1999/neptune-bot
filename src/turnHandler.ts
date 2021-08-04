@@ -1,5 +1,5 @@
 import {CronJob} from "cron";
-import {getAllGames, getGameFromId, updateGame} from "./db";
+import {getAllGames, getGameFromId, removeGame, updateGame} from "./db";
 import {Client} from 'discord.js-commando';
 import {TextChannel} from 'discord.js';
 import FormData from "form-data";
@@ -18,7 +18,12 @@ export default function(client: Client) {
             try{
                 const {data}: {data: {scanning_data: ScanningData}} = await axios.post('https://np.ironhelmet.com/api', form, {
                     headers: form.getHeaders()
-		});
+		        });
+
+                if(data.scanning_data.game_over) {
+                    await removeGame(game);
+                    continue;
+                }
 
                 if(data.scanning_data.tick === game.lastTick) {
                     continue;
